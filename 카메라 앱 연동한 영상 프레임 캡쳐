@@ -1,0 +1,75 @@
+# 카메라 앱 연동한 비디오 영상 프레임 캡쳐 
+import cv2
+import time
+import os
+
+# 얼굴 인식용 Haar Cascade 파일 경로
+cascade_path = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+
+# # Haar Cascade 분류기 생성
+face_cascade = cv2.CascadeClassifier(cascade_path)
+
+# 카메라 열기
+camera = cv2.VideoCapture('/content/drive/MyDrive/Colab Notebooks/object_detectection_video/project2/IMG_0085.MOV')
+
+# 프레임 이미지를 저장할 폴더 경로 (현재 작업 디렉토리 기준)
+output_folder = 'frames'
+output_path = os.path.join(os.getcwd(), output_folder)
+os.makedirs(output_path, exist_ok=True)
+
+# 캡처할 시간 (초)
+capture_duration = 10
+
+# 저장할 최대 프레임 개수
+max_frames = 100
+
+start_time = time.time()  # 동영상 촬영 시작 시간
+frame_index = 0  # 프레임 인덱스 초기화
+
+while True:
+    # 프레임 읽기
+    ret, frame = camera.read()
+
+    # 프레임 읽기에 실패하면 반복 종료
+    if not ret:
+        break
+
+    # 그레이스케일 변환
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # 얼굴 인식
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5, minSize=(30, 30))
+
+    # 얼굴에 사각형 표시 및 텍스트 추가
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        text = f'Turn your face sideways {frame_index}'  # 텍스트 내용 설정
+        cv2.putText(frame, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+
+    # 카메라 영상 표시
+    # cv2.imshow("Camera", frame)
+
+    # 동영상 프레임 저장
+    elapsed_time = time.time() - start_time
+    if elapsed_time <= capture_duration and frame_index < max_frames:
+        image_path = os.path.join(output_path, f'frame_{frame_index}.jpg')
+        cv2.imwrite(image_path, frame)
+        frame_index += 1
+    else:
+        break
+
+    # 'q' 키를 누르면 반복 종료
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+    # 10ms 딜레이
+    time.sleep(0.01)  # 0.01초(10ms) 딜레이
+
+# 카메라 닫기
+camera.release()
+
+
+# 윈도우 닫기
+cv2.destroyAllWindows()
+
+print(f'동영상 촬영이 완료되었습니다. 총 {frame_index}개의 프레임이 저장되었습니다.')
