@@ -25,9 +25,9 @@
 5. 학습 결과 중간 확인
      - 학습 결과
           아래의 2개의 파일을 다운로드 받으면 됩니다.
-           1. 가중치
+          1. 가중치
                 /content/drive/MyDrive/yolo_custom_model_Training3/backup/yolov4_custom_last.weights
-           2. cfg 파일
+          2. cfg 파일
                 /content/drive/MyDrive/yolo_custom_model_Training3/darknet/cfg/yolov4_custom.cfg
 
      - 이미지 파일로 우선 cfg, weight 사용해서 detect 잘되는지 확인
