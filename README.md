@@ -11,6 +11,8 @@
 
 
 **YOLO(You Only Look Once) : 머신러닝에서 한 사진 안에 어떤 물체들이 등장하는지에 대한 것을 판별해주는 Task**
+
+
 3. yolov4(yolov4.conv.137) 다운받아 yolo모델로 다크넷 사용해서 train_data 학습
      -  학습될 가중치를 저장할 backup 이라는 폴더 미리 생성
      -  yolov4.cfg -> yolov4_custom.cfg 
