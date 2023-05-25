@@ -11,6 +11,7 @@
 
 2. 레이블링 (labelImg)
       - 보행자(p), 차(car) labeling
+      - custom_data 생성(.jpg, .txt, class.txt)
 
 
 3. yolov4(yolov4.conv.137) 다운받아 yolo모델로 다크넷 사용해서 train_data 학습
@@ -24,5 +25,5 @@
 6. 각 클래스 별로 정확도를 확인
   
   
-7. 사람, 자동차 수 측정
+7. 보행자, 자동차 수 측정
      - softmax 함수로 자동차와 사람 수 count  vs. 시그모이드 함수로 사람 수만 count
