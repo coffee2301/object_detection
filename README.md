@@ -19,10 +19,9 @@
      -  yolov4.cfg -> yolov4_custom.cfg 
      - cfg, weight 파일 생성
 
-5. 학습 결과 확인
-
-
-6. 각 클래스 별로 정확도를 확인
+5. 학습 결과 중간 확인
+     - train_data 일부를  이미지 파일(.jpg)형태로 생성한 cfg, weight 로 사람, 보행자 detect 
+     - 
   
   
 7. 보행자, 자동차 수 측정
